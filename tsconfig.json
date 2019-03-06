@@ -8,7 +8,15 @@
     "target": "es6",
     "sourceMap": true,
     "outDir": "./dist",
-    "baseUrl": "./"
+    "baseUrl": "./src",
+    "paths": {
+      "@app/*": [
+        "./*"
+      ],
+      "@env/*": [
+        "../environment/*"
+      ]
+    }
   },
   "exclude": ["node_modules"]
 }
