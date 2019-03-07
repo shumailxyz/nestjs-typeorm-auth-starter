@@ -1,10 +1,12 @@
-import { Controller, Get, Param, Put, Body, Post } from '@nestjs/common';
+import { Controller, Get, Param, Put, Body, Post, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from './user.entity';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { CreateUserDto } from './dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('users')
+@UseGuards(AuthGuard())
 export class UserController {
 
   constructor(private readonly userService: UserService) { }
@@ -19,6 +21,7 @@ export class UserController {
 
   /**
    * Create a new user
+   * Normally, users will sign up using the signup route in Auth module. This route is for special purposes (e.g. Admin creates new user himself)
    * @param userData User attributes
    */
   @Post()
