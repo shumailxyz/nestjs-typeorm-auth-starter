@@ -1,10 +1,13 @@
-import { Controller, Get, UseGuards, Post, Body, Req } from '@nestjs/common';
+import { Controller, Get, UseGuards, Post, Body, Req, HttpStatus } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from '@app/user/dto';
 import { User } from '@app/user/user.entity';
 import { LoginUserDto } from './dto/login-user.dto';
+import { ApiUseTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { messages } from '@app/common/i18n/en/messages';
 
+@ApiUseTags('auth')
 @Controller('auth')
 export class AuthController {
 
@@ -15,6 +18,8 @@ export class AuthController {
    * @param userData User data attributes
    */
   @Post('signup')
+  @ApiOperation({ title: messages.apidocs.auth.signupTitle , description: messages.apidocs.auth.signupDesc })
+  @ApiResponse({ status: HttpStatus.OK, type: User, description: messages.apidocs.general.success })
   public async signUp(@Body() userData: CreateUserDto): Promise<User> {
     return await this.authService.signUp(userData);
   }
@@ -25,6 +30,8 @@ export class AuthController {
    * @param req request body. Should have email & password
    */
   @Post('login')
+  @ApiOperation({ title: messages.apidocs.auth.loginTitle , description: messages.apidocs.auth.loginDesc })
+  @ApiResponse({ status: HttpStatus.OK, type: User, description: messages.apidocs.general.success })
   public async login(@Body() loginUserDto: LoginUserDto) {
     return await this.authService.login(loginUserDto);
   }
