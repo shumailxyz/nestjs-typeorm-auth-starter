@@ -15,7 +15,7 @@ export class UserService {
    * Inserts a new User into the database.
    * @param userData user attributes in request body
    */
-  public async create(userData: CreateUserDto): Promise<User> {
+  async create(userData: CreateUserDto): Promise<User> {
     const user = new User();
     user.firstName = userData.firstName;
     user.lastName = userData.lastName;
@@ -33,7 +33,7 @@ export class UserService {
   /**
    * Returns array of all users from db
    */
-  public async findAll(): Promise<User[]> {
+  async findAll(): Promise<User[]> {
     return await this.userRepository.find();
   }
 

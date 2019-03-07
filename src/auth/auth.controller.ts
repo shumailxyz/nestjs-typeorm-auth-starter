@@ -20,7 +20,7 @@ export class AuthController {
   @Post('signup')
   @ApiOperation({ title: messages.apidocs.auth.signupTitle , description: messages.apidocs.auth.signupDesc })
   @ApiResponse({ status: HttpStatus.OK, type: User, description: messages.apidocs.general.success })
-  public async signUp(@Body() userData: CreateUserDto): Promise<User> {
+  async signUp(@Body() userData: CreateUserDto): Promise<User> {
     return await this.authService.signUp(userData);
   }
 
@@ -32,7 +32,7 @@ export class AuthController {
   @Post('login')
   @ApiOperation({ title: messages.apidocs.auth.loginTitle , description: messages.apidocs.auth.loginDesc })
   @ApiResponse({ status: HttpStatus.OK, type: User, description: messages.apidocs.general.success })
-  public async login(@Body() loginUserDto: LoginUserDto) {
+  async login(@Body() loginUserDto: LoginUserDto) {
     return await this.authService.login(loginUserDto);
   }
 
@@ -42,7 +42,7 @@ export class AuthController {
    */
   @Get('protected')
   @UseGuards(AuthGuard())
-  public async protected() {
+  async protected() {
     return 'hello protected';
   }
 }
