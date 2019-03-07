@@ -79,16 +79,28 @@ export class UserService {
    * Updates a user
    */
   async update(id: string, updateUserData: UpdateUserDto): Promise<User> {
+    let userToUpdate: User;
     try {
-      const toUpdate = await this.userRepository.findOne(id);
-      delete toUpdate.password;
-
-      const updated = Object.assign(toUpdate, updateUserData);
-      return await this.userRepository.save(updated);
-
+      userToUpdate = await this.userRepository.findOne(id);
     } catch (error) {
       throw new Error(error);
     }
+    // if request body includes oldPassword & newPassword
+    if (updateUserData.oldPassword && updateUserData.newPassword) {
+      const isOldPasswordCorrect = await bcrypt.compare(updateUserData.oldPassword, userToUpdate.password);
+      // if user provied wrong old password
+      if (!isOldPasswordCorrect) {
+        throw new BadRequestException('Old password is not correct.');
+      } else {
+      // user provied correct old password
+      userToUpdate.password = await bcrypt.hash(updateUserData.newPassword, 10);
+      }
+    } else if ( (updateUserData.oldPassword && !updateUserData.newPassword) || (!updateUserData.oldPassword && updateUserData.newPassword)) {
+      throw new BadRequestException('Provide both, old & new passwords or leave them empty if you want to update profile without changing password.');
+    }
+
+    const updated = Object.assign(userToUpdate, updateUserData);
+    return await this.userRepository.save(updated);
   }
 
 }

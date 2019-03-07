@@ -1,20 +1,28 @@
-import { IsNotEmpty } from 'class-validator';
-// todo: fix validation
+import { IsEmail, IsOptional, Min, Length } from 'class-validator';
 
 export class UpdateUserDto {
 
-  @IsNotEmpty()
+  @IsOptional()
+  @Length(1)
   readonly firstName: string;
 
-  @IsNotEmpty()
+  @IsOptional()
+  @Length(1)
   readonly lastName: string;
 
-  @IsNotEmpty()
+  @IsOptional()
+  @IsEmail()
   readonly email: string;
 
-  @IsNotEmpty()
-  readonly password: string;
+  @IsOptional()
+  @Length(6)
+  readonly oldPassword: string;
 
-  @IsNotEmpty()
+  @IsOptional()
+  @Length(6)
+  readonly newPassword: string;
+
+  // todo: eth web3 validator
+  @IsOptional()
   readonly ethWalletAddress: string;
 }

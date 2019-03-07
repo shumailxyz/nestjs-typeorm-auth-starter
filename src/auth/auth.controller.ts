@@ -31,6 +31,7 @@ export class AuthController {
 
   /**
    * Test route for Guard
+   * todo: remove this route
    */
   @Get('protected')
   @UseGuards(AuthGuard())

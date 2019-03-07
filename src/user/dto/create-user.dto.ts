@@ -1,20 +1,21 @@
-import { IsNotEmpty } from 'class-validator';
+import { IsNotEmpty, IsEmail, Length } from 'class-validator';
 // todo: validate properly
 
 export class CreateUserDto {
 
-  @IsNotEmpty()
+  @Length(1)
   readonly firstName: string;
 
-  @IsNotEmpty()
+  @Length(1)
   readonly lastName: string;
 
-  @IsNotEmpty()
+  @IsEmail()
   readonly email: string;
 
-  @IsNotEmpty()
+  @Length(6)
   readonly password: string;
 
+  // todo: custom web3 eth address validator
   @IsNotEmpty()
   readonly ethWalletAddress: string;
 }
