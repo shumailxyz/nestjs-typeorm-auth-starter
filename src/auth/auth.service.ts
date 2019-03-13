@@ -6,6 +6,7 @@ import { UserService } from '@app/user/user.service';
 import { CreateUserDto } from '@app/user/dto';
 import { LoginUserDto } from './dto/login-user.dto';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
+import { ConfigService } from '@app/config/config.service';
 
 @Injectable()
 export class AuthService {
@@ -13,6 +14,7 @@ export class AuthService {
   constructor(
     private readonly userService: UserService,
     private readonly jwtService: JwtService,
+    private readonly configService: ConfigService,
   ) { }
 
   async signUp(userData: CreateUserDto): Promise<User> {
@@ -32,7 +34,7 @@ export class AuthService {
           email: user.email,
         });
         return {
-          expiresIn: 3600,  // todo: fix this
+          expiresIn: this.configService.jwtExpiresIn,
           token: accessToken,
         };
       } else {  // if password is incorrect

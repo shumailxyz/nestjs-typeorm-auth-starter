@@ -1,6 +1,5 @@
 import { IsNotEmpty, IsEmail, Length } from 'class-validator';
 import { ApiModelProperty } from '@nestjs/swagger';
-// todo: validate properly
 
 export class CreateUserDto {
 
