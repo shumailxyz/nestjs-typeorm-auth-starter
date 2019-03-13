@@ -4,7 +4,7 @@ import { AuthService } from './auth.service';
 import { CreateUserDto } from '@app/user/dto';
 import { User } from '@app/user/user.entity';
 import { LoginUserDto } from './dto/login-user.dto';
-import { ApiUseTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiUseTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { messages } from '@app/common/i18n/en/messages';
 
 @ApiUseTags('auth')
@@ -41,6 +41,7 @@ export class AuthController {
    * todo: remove this route
    */
   @Get('protected')
+  @ApiBearerAuth()
   @UseGuards(AuthGuard())
   async protected() {
     return 'hello protected';
