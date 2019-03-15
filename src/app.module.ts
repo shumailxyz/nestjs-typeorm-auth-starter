@@ -22,7 +22,8 @@ import { ConfigService } from './config/config.service';
           entities: [
             'src/**/**.entity{.ts,.js}',
           ],
-          synchronize: true,
+          dropSchema: configService.dropSchema,
+          synchronize: configService.databaseSyncronize,
         });
       },
       inject: [ConfigService],

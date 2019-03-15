@@ -22,5 +22,6 @@ export class CreateUserDto {
   // todo: custom web3 eth address validator
   @ApiModelProperty()
   @IsNotEmpty()
+  @Length(42, 42)
   readonly ethWalletAddress: string;
 }

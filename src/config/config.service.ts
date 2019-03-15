@@ -88,4 +88,27 @@ export class ConfigService {
     return Number(this.envConfig.DB_PORT);
   }
 
+  get dropSchema(): boolean {
+    if (process.env.NODE_ENV === 'test') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  /**
+   * This is used for setting 'synchronize' flag in DB connection for TypeORM
+   * From TypeORM Docs:
+   *    synchronize - Indicates if database schema should be auto created on every application launch.
+   *    Be careful with this option and don't use this in production - otherwise you can lose production data.
+   *    This option is useful during debug and development.
+   */
+  get databaseSyncronize(): boolean {
+    if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
 }

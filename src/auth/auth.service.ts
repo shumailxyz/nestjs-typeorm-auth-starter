@@ -25,7 +25,7 @@ export class AuthService {
   async login(loginUserData: LoginUserDto) {
     const user = await this.userService.findOneByEmail(loginUserData.email);
     if (!user) {
-      throw new UnauthorizedException(`User with ${loginUserData.email} does not exist`);
+      throw new UnauthorizedException(`User with ${loginUserData.email} does not exist`, 'unknown_user');
     }
     // if user found
     if (user) {

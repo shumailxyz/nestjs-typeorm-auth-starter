@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { messages } from './common/i18n/en/messages';
 
 describe('AppController', () => {
   let appController: AppController;
@@ -16,7 +17,10 @@ describe('AppController', () => {
 
   describe('root', () => {
     it('should return "Hello World!"', () => {
-      expect(appController.getHello()).toBe('Hello World!');
+      expect(appController.getHello()).toEqual({
+        name: messages.appName,
+        message: messages.apidocs.general.helloWorld,
+      });
     });
   });
 });
