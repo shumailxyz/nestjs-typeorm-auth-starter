@@ -5,7 +5,7 @@ import { messages } from './common/i18n/en/messages';
 export class AppService {
   getHello(): any {
     return {
-      name: 'V2X Network Core',
+      name: messages.appName,
       message: messages.apidocs.general.helloWorld,
     };
   }

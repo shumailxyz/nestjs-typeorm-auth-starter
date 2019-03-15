@@ -3,6 +3,7 @@
 
 # configuration
 .env
+*.env
 
 # IDE
 /.idea

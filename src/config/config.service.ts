@@ -15,9 +15,9 @@ export class ConfigService {
   constructor() {
     let config;
     try {
-      config = dotenv.parse(fs.readFileSync('.env'));
+      config = dotenv.parse(fs.readFileSync(`${process.env.NODE_ENV}.env`));
     } catch (error) {
-      this.logger.error('No .env file was found.');
+      this.logger.error(`No ${process.env.NODE_ENV}.env file was found.`);
     }
     if (config) {
       this.envConfig = this.validateInput(config);

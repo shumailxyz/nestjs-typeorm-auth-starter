@@ -1,4 +1,5 @@
 export const messages = {
+  appName: 'V2X Network Core',
   apidocs: {
     general: {
       success: 'Success!',
