@@ -23,7 +23,11 @@ export class AuthService {
 
   // todo: return type
   async login(loginUserData: LoginUserDto) {
-    const user = await this.userService.getByEmail(loginUserData.email);
+    const user = await this.userService.findOneByEmail(loginUserData.email);
+    if (!user) {
+      throw new UnauthorizedException(`User with ${loginUserData.email} does not exist`);
+    }
+    // if user found
     if (user) {
       // compare password
       const isPasswordCorrect = await bcrypt.compare(loginUserData.password, user.password);
@@ -48,7 +52,7 @@ export class AuthService {
    * @param payload JWT token payload.
    */
   async validateUser(payload: JwtPayload): Promise<any> {
-    return await this.userService.getByEmail(payload.email);
+    return await this.userService.findOneByEmail(payload.email);
   }
 
 }

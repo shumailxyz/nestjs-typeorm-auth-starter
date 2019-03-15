@@ -46,7 +46,7 @@ export class UserController {
   @ApiOperation({ title: messages.apidocs.users.getUserByIdTitle, description: messages.apidocs.users.getUserByIdDesc })
   @ApiResponse({ status: HttpStatus.OK, type: User, description: messages.apidocs.general.success })
   async findOne(@Param('id') id: string): Promise<User> {
-    return await this.userService.getById(id);
+    return await this.userService.findOneById(id);
   }
 
   /**

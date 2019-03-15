@@ -16,6 +16,10 @@ export class UserService {
    * @param userData user attributes in request body
    */
   async create(userData: CreateUserDto): Promise<User> {
+    if (userData.email && await this.findOneByEmail(userData.email)) {
+      throw new BadRequestException('E-Mail already exists', 'email_already_exists');
+    }
+
     const user = new User();
     user.firstName = userData.firstName;
     user.lastName = userData.lastName;
@@ -40,7 +44,7 @@ export class UserService {
   /**
    * Returns a user by given id
    */
-  async getById(id: string | number): Promise<User> {
+  async findOneById(id: string | number): Promise<User> {
     let user: User;
     try {
       user = await this.userRepository.findOne(id);
@@ -54,25 +58,11 @@ export class UserService {
   }
 
   /**
-   * Returns a user by email
+   * Find user by email
+   * @param email email to search for
    */
-  async getByEmail(email: string): Promise<User> {
-    let users: User[];
-    try {
-      users = await this.userRepository.find({
-        where: {
-          email,
-        },
-      });
-    } catch (error) {
-      throw new Error(error);
-    }
-
-    if (users && users.length > 0) {
-      return users[0];  // typeorm find() returns array even if response is single object
-    } else {
-      throw new NotFoundException(`User with ${email} does not exist`);
-    }
+  async findOneByEmail(email: string): Promise<User | undefined> {
+    return this.userRepository.findOne({ email });
   }
 
   /**
