@@ -2,6 +2,7 @@ export const messages = {
   apidocs: {
     general: {
       success: 'Success!',
+      helloWorld: 'Hello World',
     },
     users: {
       getAllUsersTitle: 'Get all users',
