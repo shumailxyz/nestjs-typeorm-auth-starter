@@ -2,7 +2,7 @@ FROM node:16.17.0
 
 
 # Create app directory
-WORKDIR /usr/src/app
+WORKDIR /app
 
 # Copy package files
 COPY package*.json ./
