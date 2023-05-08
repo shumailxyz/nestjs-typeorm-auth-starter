@@ -12,13 +12,19 @@ type: container
 build: backend
 
 spec:
-  args: [ npm, start ]
+  args: [ npm, run, start:dev ] # override 
   ports:
     - name: http
       containerPort: 3000
   ingresses:
     - path: /
       port: http
+  sync:
+    paths:
+      - target: /app/src
+        source: src
+        mode: two-way
+        exclude: [node_modules]
 
 ---
 
