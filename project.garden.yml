@@ -1,0 +1,19 @@
+# Documentation about Garden projects can be found at https://docs.garden.io/using-garden/projects
+# Reference for Garden projects can be found at https://docs.garden.io/reference/project-config
+apiVersion: garden.io/v1
+# Indicate what kind of config this is.
+kind: Project
+
+# The name of the project.
+name: auth-nestjs
+
+# A list of environments to configure for the project.
+environments:
+  - # The name of the environment.
+    name: default
+
+# A list of providers that should be used for this project, and their configuration. Please refer to individual
+# plugins/providers for details on how to configure them.
+providers:
+  - # The name of the provider plugin to use.
+    name: local-kubernetes
